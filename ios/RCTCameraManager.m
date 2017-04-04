@@ -694,7 +694,8 @@ RCT_EXPORT_METHOD(setZoom:(CGFloat)zoomFactor) {
   else if (target == RCTCameraCaptureTargetCameraRoll) {
     [[[ALAssetsLibrary alloc] init] writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL* url, NSError* error) {
       if (error == nil) {
-        resolve(@{@"path":[url absoluteString]});
+        //path isn't really applicable here (this is an asset uri), but left it in for backward comparability
+        resolve(@{@"path":[url absoluteString], @"mediaUri":[url absoluteString]});
       }
       else {
         reject(RCTErrorUnspecified, nil, RCTErrorWithMessage(error.description));
