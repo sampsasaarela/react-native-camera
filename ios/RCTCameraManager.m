@@ -424,7 +424,8 @@ RCT_EXPORT_METHOD(setZoom:(CGFloat)zoomFactor) {
     NSError *error = nil;
     AVCaptureDevice *device = [[self videoCaptureDeviceInput] device];
     if ([device lockForConfiguration:&error]) {
-        device.videoZoomFactor = zoomFactor;
+        // device.videoZoomFactor = zoomFactor;
+        [device rampToVideoZoomFactor:zoomFactor withRate:10.0];
         [device unlockForConfiguration];
     } else {
         NSLog(@"error: %@", error);
